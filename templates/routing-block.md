@@ -27,7 +27,7 @@ Rules:
 
 ### Starting a delegate
 
-When the commander is Claude Code, Claude seats use the native `Agent` tool. A commander that is not Claude Code starts Claude seats through Orca with `--agent claude --model <name>`. Other seats, and any worker that needs its own checkout, go through the harness's orchestrator. Check which harness you are in before the first delegate.
+A Claude Code commander starts Claude seats with the native `Agent` tool. Any other commander starts them through Orca with `--agent claude --model <name>`, or has none outside Orca. Other seats, and any worker that needs its own checkout, go through the harness's orchestrator. Check which harness you are in before the first delegate.
 
 - **Orca**, when `ORCA_CLI_COMMAND` is set. Read `orca skills get orchestration --full` once per session. Write the brief to a file. Run `orca orchestration worker-start --environment local --spec-file <brief.md> --worktree <current|new-child> <flags from the table>`. Use `current` for read-only work and `new-child --name <short-name>` when the worker edits files. End the turn after you start workers. Orca wakes you with each `worker_done`. To give a worker another round, run `orca orchestration send --to dispatch:<id>`.
 - **T3 Code**, when the `delegate_task` tool exists. Call `orchestrator_capabilities` once per thread, then `delegate_task`. Pass the provider and model from the table, and pass the thinking level as `thought_level` for Antigravity or `reasoningEffort` for Codex. Every round or retry is a new `delegate_task`.

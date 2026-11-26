@@ -37,6 +37,7 @@ Nothing outside the markers changes.
 - For Gemini and GPT seats, either Orca with the `antigravity` and `codex` agents, or T3 Code. Without one, every role falls back to a Claude model.
 - For pstack, Claude Code with the `claude` command.
 - A commander that is not Claude Code starts Claude seats through Orca with `--agent claude`. Without Orca, it has no Claude seats.
+- The install writes the same files whichever agent runs it.
 
 ## Files
 

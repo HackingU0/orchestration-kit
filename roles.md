@@ -14,7 +14,7 @@ The installer checks two pairs, and only these two. Routine review must differ i
 
 ## Pick order
 
-The installer takes the first entry in each list that the machine has and that passes its probe. The probe is skipped for Claude seats on the native `Agent` tool, because that tool takes only the models in its schema. A Claude seat started through Orca is probed like the others.
+The installer takes the first entry in each list that the machine has and that passes its probe. Claude seats are not probed. The `Agent` tool takes only the models in its schema, and the installer does not know which commander will use the repo.
 
 | Role | Try in this order |
 |---|---|
@@ -37,7 +37,7 @@ Run each command once. A command that fails means that the family is absent. It 
 | Orca agents | `orca agent installed --json` | `result.agents[].id` |
 | Gemini models | `agy models` | First column. The level is the last part of the id, such as `-high` |
 | GPT models | `~/.codex/config.toml` and `~/.codex/models_cache.json` | The `model` line gives the line in use, such as `-sol`. Pick the highest version with that suffix in the cache |
-| Claude models | The `Agent` tool schema, when the commander is Claude Code | The values of `model`. Another commander in Orca uses `opus`, `sonnet`, `haiku`, and `fable` if `claude` is in the Orca agent list, and has no Claude models otherwise |
+| Claude models | The `Agent` tool schema if you have it | The values of `model`. Without the tool, use `opus`, `sonnet`, `haiku`, and `fable` |
 
 ## Start strings
 
@@ -45,8 +45,7 @@ The installer writes these into the "How to start it" column.
 
 | Family | Orca | T3 Code |
 |---|---|---|
-| Claude, commander is Claude Code | `Agent` with `model: <name>` | `Agent` with `model: <name>` |
-| Claude, other commander | `--agent claude --model <name>` | not available |
+| Claude | `Agent` with `model: <name>`, or `--agent claude --model <name>` from a commander that is not Claude Code | `Agent` with `model: <name>` |
 | Gemini | `--agent antigravity --model <id with level>` | `delegate_task`, Antigravity, `<id without level>`, `thought_level: <level>` |
 | GPT | `--agent codex --model <id> --effort <level>` | `delegate_task`, Codex, `<id>`, `reasoningEffort: <level>` |
 

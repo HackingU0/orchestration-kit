@@ -6,9 +6,9 @@ You are an agent installing orchestration-kit into a git repository. These steps
 
 The install writes only these things:
 - a marked block in `REPO/AGENTS.md`
-- a marked pointer in `REPO/CLAUDE.md`, when the commander is Claude Code
+- a marked pointer in `REPO/CLAUDE.md`
 - a backup in `REPO/.git/orchestration-kit-backup/`
-- the pstack plugin at local scope, when it is missing and the commander is Claude Code
+- the pstack plugin at local scope, when it is missing and the `claude` command exists
 - one probe worker per model started through an orchestrator, which edits no files
 
 ## 1. Check the target
@@ -41,7 +41,7 @@ In T3 Code, send `KIT/probe/probe.md` as the task of one `delegate_task` per can
 
 ## 5. Set up pstack
 
-Skip this step if the commander is not Claude Code or the `claude` command is missing. Write `pstack=skipped` in the block marker and leave `{{PSTACK_SECTION}}` empty.
+Skip this step if the `claude` command is missing. It does not matter which agent runs this install. Write `pstack=skipped` in the block marker and leave `{{PSTACK_SECTION}}` empty.
 
 1. Run `claude plugin list --json`. If an entry has `id` `pstack@cursor-plugins` and is enabled for `REPO`, take its `installPath` as `PSTACK_ROOT`. On a reinstall, keep the `pstack=` value from the old start marker, so that uninstall still knows who installed pstack. Otherwise write `pstack=present`.
 2. Otherwise run `claude plugin marketplace list`. If no marketplace is named `cursor-plugins`, run `claude plugin marketplace add cursor/plugins --sparse .claude-plugin harness/pstack`.
@@ -54,13 +54,13 @@ Skip this step if the commander is not Claude Code or the `claude` command is mi
 1. Make `REPO/.git/orchestration-kit-backup/<UTC timestamp>/`. Copy `AGENTS.md` and `CLAUDE.md` into it if they exist.
 2. Fill `KIT/templates/routing-block.md`:
    - Each `_NAME` is the family and model, such as "Gemini `gemini-4-neon-high`" or "Claude `sonnet`".
-   - Each `_START` is the start string for the harness, from `KIT/roles.md`. For a Claude seat it is "`Agent` with `model: sonnet`".
+   - Each `_START` is the start string for the harness, from `KIT/roles.md`. For a Claude seat it is "`Agent` with `model: sonnet`, or `--agent claude --model sonnet` from a commander that is not Claude Code".
    - `{{SECOND_REVIEW_NAME}}` and `{{SECOND_REVIEW_START}}` are "none" when step 3 found no second reviewer.
    - `{{FALLBACK_NAME}}` is the fallback line from `KIT/roles.md`.
    - `{{CODEMAP_RULE}}` is ` Read <path> before you touch code, and pass it to every delegate.` when the repo has a codebase map such as `docs/MAP.md` or `ARCHITECTURE.md`. Otherwise it is empty.
    - `{{PSTACK_STATE}}` and `{{PSTACK_SECTION}}` come from step 5.
 3. Write the block into `REPO/AGENTS.md`. If the file has a block from `<!-- orchestration-kit:start` to `<!-- orchestration-kit:end -->`, replace exactly those lines. If it has none, append the block after one blank line. If the file is missing, create it with `# Agents`, a blank line, and the block.
-4. If the commander is Claude Code, write `KIT/templates/claude-pointer.md` into `REPO/CLAUDE.md` by the same rule. A new `CLAUDE.md` holds only the pointer.
+4. Write `KIT/templates/claude-pointer.md` into `REPO/CLAUDE.md` by the same rule, whichever agent runs this install. A new `CLAUDE.md` holds only the pointer.
 5. Leave every line outside the markers unchanged.
 
 ## 7. Check the result
