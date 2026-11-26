@@ -10,7 +10,7 @@ This file is reference for the installer. It lists each role, the order in which
 | Gemini | Orca `antigravity` | `gemini-4-neon-high`, `gemini-4-hydrogen-high` |
 | GPT | Orca `codex` | `gpt-6.2-sol` |
 
-The writer and its reviewer must come from different families. The installer checks every pick against that rule before it writes the table.
+The installer checks two pairs, and only these two. Routine review must differ in family from routine coding, because it reviews that code. The second reviewer must differ in family from routine review. Hard-problem work is reviewed by the commander and the second reviewer at run time, so hard problems and routine review may share a family. Take each pick order as written once these two checks pass.
 
 ## Pick order
 

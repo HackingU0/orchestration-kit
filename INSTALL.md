@@ -23,7 +23,7 @@ Follow "Finding models" in `KIT/roles.md`. Record the harness, which is Orca, T3
 
 ## 3. Pick a model for each role
 
-Follow "Pick order" in `KIT/roles.md`. A pick that starts through an orchestrator stays a candidate until its probe passes in step 4. Check that no writer and reviewer pair shares a family.
+Follow "Pick order" in `KIT/roles.md`. A pick that starts through an orchestrator stays a candidate until its probe passes in step 4. Apply the two family checks in "Families" in `KIT/roles.md`, and no others.
 
 ## 4. Probe each candidate that starts through an orchestrator
 
