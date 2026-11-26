@@ -53,11 +53,11 @@ Skip this step if the `claude` command is missing. It does not matter which agen
 
 1. Make `REPO/.git/orchestration-kit-backup/<UTC timestamp>/`. Copy `AGENTS.md` and `CLAUDE.md` into it if they exist.
 2. Fill `KIT/templates/routing-block.md`:
-   - Each `_NAME` is the family and model, such as "Gemini `gemini-4-neon-high`" or "Claude `sonnet`".
+   - Each `_NAME` is the family and the model id in code font, with nothing after it, such as "Gemini `gemini-4-neon-high`", "GPT `gpt-6.2-sol`" or "Claude `sonnet`". The effort goes only in the start string.
    - Each `_START` is the start string for the harness, from `KIT/roles.md`. For a Claude seat it is "`Agent` with `model: sonnet`, or `--agent claude --model sonnet` from a commander that is not Claude Code".
    - `{{SECOND_REVIEW_NAME}}` and `{{SECOND_REVIEW_START}}` are "none" when step 3 found no second reviewer.
    - `{{FALLBACK_NAME}}` is the fallback line from `KIT/roles.md`.
-   - `{{CODEMAP_RULE}}` is ` Read <path> before you touch code, and pass it to every delegate.` when the repo has a codebase map such as `docs/MAP.md` or `ARCHITECTURE.md`. Otherwise it is empty.
+   - `{{CODEMAP_RULE}}` is `` Read `<path>` before you touch code, and pass it to every delegate.``, with the path in code font, when the repo has a codebase map such as `docs/MAP.md` or `ARCHITECTURE.md`. Otherwise it is empty.
    - `{{PSTACK_STATE}}` and `{{PSTACK_SECTION}}` come from step 5.
 3. Write the block into `REPO/AGENTS.md`. If the file has a block from `<!-- orchestration-kit:start` to `<!-- orchestration-kit:end -->`, replace exactly those lines. If it has none, append the block after one blank line. If the file is missing, create it with `# Agents`, a blank line, and the block.
 4. Write `KIT/templates/claude-pointer.md` into `REPO/CLAUDE.md` by the same rule, whichever agent runs this install. A new `CLAUDE.md` holds only the pointer.
